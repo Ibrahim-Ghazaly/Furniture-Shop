@@ -1,0 +1,70 @@
+.categories {
+width: 100%;
+
+}
+
+.categories .container .box {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap:30px;
+}
+
+
+
+.categories  .col {
+    
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .categories  .col .cat-btn {
+    
+      opacity: 0;
+    }
+
+
+    .categories  .col:hover img{
+      transition: 1s;
+
+      transform: scale(1.3) ;
+    }
+  
+    .categories  .col:hover .cat-btn{
+      opacity: 1;
+    }
+
+    .categories    button{
+        position: absolute;
+        min-width: 100px;
+        width: fit-content;
+        height: 50px;
+        padding: 10px;
+        bottom: 40px;
+         left: 50%;
+         transform: translateX(-50%);
+       background-color: var(--color-light); 
+          margin: auto;
+        cursor: pointer;
+        border: none;
+         border-radius:10px ;  
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: .5s;
+      }
+
+      .categories button:hover{
+        background-color: var( --color-light-2);
+      }
+  
+      .categories button .link {
+        color: black;
+      }
+      .categories    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+  

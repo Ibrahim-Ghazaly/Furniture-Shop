@@ -1,38 +1,41 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Start Global Rules */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
   }
-}
+  :root {
+    --main-color: #795438;
+    --main-color-alt:rgb(241, 219, 201);
+    --main-color-alt-2:rgba(241, 219, 201,.2);
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+    --color-light:rgb(208, 164, 130);
+    --color-light-2:rgba(208, 164, 130,.8);
+    --color-page:#Bc9c8e; 
+    --color-gray:#766f62;
+     --white:#fff;
+    --main-transition: 0.3s;
+    --second-transition: .6s;
+    --main-padding-top: 100px;
+    --main-padding-bottom: 100px;
+    --section-background: #ececec;
   }
-  to {
-    transform: rotate(360deg);
+  html {
+    scroll-behavior: smooth;
   }
-}
+  body {
+    font-family: "Cairo", sans-serif;
+  }
+
+  ul{
+    list-style: none;
+  }
+  
+  a {text-decoration: none;}
+
+  .App{
+    background-color: var(  --main-color-alt-2);
+    
+  }

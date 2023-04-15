@@ -1,0 +1,19 @@
+.add-product{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.add-product form .btn-primary{
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.add-product form .btn-primary:hover{
+    background-color: var(--color-light);
+}
+
+.add-product.form-check-input:focus {
+    box-shadow: none;
+}

@@ -1,0 +1,23 @@
+.register{
+    height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    
+}
+
+.register form{
+    width: 50%;
+    display: block;
+}
+
+.register form .btn-primary{
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.register form .btn-primary:hover{
+    background-color: var(--color-light);
+}
