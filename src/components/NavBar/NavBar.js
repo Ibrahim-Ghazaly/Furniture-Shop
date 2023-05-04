@@ -22,7 +22,7 @@ function NavBar() {
       <header className="header" data-header>
           <div className="container">
 
-      <Link to="/" className="logo">Woody</Link>
+      <Link to="/" className="logo">Woodex</Link>
 
       <div className="header-action">
       
