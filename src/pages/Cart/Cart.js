@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeItem,resetCart } from '../../redux/slices/cart-slice';
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
 
   const products = useSelector((state) => state.cartWishList.cart);
   console.log(products)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [err,setErr]=useState(null)
   const [loading,setLoading] = useState(false)
@@ -34,12 +36,13 @@ function Cart() {
 
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id, 
-      });
+      }).then(res => console.log(res)).catch(err => console.log(err));
       setLoading(false)
     } catch (err) {
       setLoading(false)
       setErr(err)
       console.log(err);
+      navigate("/")
     }
   };
 

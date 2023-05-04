@@ -3,8 +3,7 @@ import './NavBar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout } from '../../redux/slices/user-slice'
 import { useDispatch, useSelector } from "react-redux";
-// import Cart from "../../pages/Cart/Cart";
-// import Wishlist from "../../pages/Wishlist/Wishlist";
+
 
 
 function NavBar() {
@@ -23,7 +22,7 @@ function NavBar() {
       <header className="header" data-header>
           <div className="container">
 
-      <Link to="/" className="logo">Woodex</Link>
+      <Link to="/" className="logo">Woody</Link>
 
       <div className="header-action">
       
