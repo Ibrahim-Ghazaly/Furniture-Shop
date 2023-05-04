@@ -8,12 +8,13 @@ import { Provider } from 'react-redux';
 import {persistor,store} from '../src/redux/store/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
     <Provider store ={store}>
       <PersistGate loading={"loading"} persistor={persistor}>
-            <App />
+            <App/>
        </PersistGate>
        </Provider>
     </BrowserRouter>

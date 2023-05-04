@@ -1,157 +1,83 @@
-import React, { useEffect } from "react";
-import "./NavBar.css";
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react'
+import './NavBar.css'
+import { Link, useNavigate } from 'react-router-dom'
+import { logout } from '../../redux/slices/user-slice'
 import { useDispatch, useSelector } from "react-redux";
-import { logout, register } from "../../redux/slices/user-slice";
-import { resetCart,resetwishlist } from "../../redux/slices/cart-slice";
-
-import Cart from "../../pages/Cart/Cart";
-import Wishlist from "../../pages/Wishlist/Wishlist";
-import { useState } from "react";
+// import Cart from "../../pages/Cart/Cart";
+// import Wishlist from "../../pages/Wishlist/Wishlist";
 
 
-export default function NavBar() {
-  const [openCart, setOpenCart] = useState(false);
-  const [openWishlist, setOpenWishlist] = useState(false);
-  const { username, token, seller, userId } = useSelector(
-    (state) => state.user
-  );
+function NavBar() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+  const{user}  = useSelector(state => state.user)
+
   const products = useSelector((state) => state.cartWishList.cart);
   const wishlist = useSelector((state) => state.cartWishList.wishlist);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate()
-
-
-  const handleCartBtn = (e)=>{
-
-    if(!token){
-      navigate("/login")
-    }else{
-      setOpenCart(!openCart)
-    }
-  }
-
-  const handleWishlistBtn= (e)=>{
-
-    if(!token){
-      navigate("/login")
-    }else{
-      setOpenWishlist(!openWishlist)
-    }
-  }
-
-  
-  const handleCloseCartClick = () => {
-  if(openCart === true){
-      setOpenCart(false)
-    }  
-  }
-
-  const handleCloseWishlistClick = () => {
-     if(openWishlist === true){
-      setOpenWishlist(false)
-    }
-    }
-    // e.stopPropagation()
-  
-
-   
+  console.log(user)
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg ">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="#">
-            Baibers
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span>
-              <i className="fi fi-br-menu-burger"></i>
-            </span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/shop">
-                  Shop
-                </Link>
-              </li>
-              {seller && (
-                <li className="nav-item">
-                  <Link className="nav-link" to="/addproduct">
-                    Add Product
-                  </Link>
-                </li>
-              )}
+      <header className="header" data-header>
+          <div className="container">
 
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link " to="/contact">
-                  Contact
-                </Link>
-              </li>
-            </ul>
+      <Link to="/" className="logo">Woodex</Link>
 
-            <ul className="navbar-nav">
-              <div className="icons">
-                <div
-                  className="nav-link watclist"
-                  onClick={handleWishlistBtn}
-                >
-                  {" "}
-                  <i className="fi fi-rr-heart"></i>{" "}
-                  <span className="span-watclist">{wishlist.length}</span>
+      <div className="header-action">
+      
+
+      <button  className="header-action-btn btn" aria-label="favorite list" onClick={()=>user.isUser?navigate("/wishlist"):navigate("/login")}>
+             <i className="fi fi-rr-heart"></i>
+          <span className="btn-badge">{wishlist.length}</span>
+        </button>
+
+        <button  className="header-action-btn btn" aria-label="cart" onClick={()=>user.isUser?navigate("/cart"):navigate("/login")}>
+           <i className="fi fi-rr-shopping-cart"></i>
+            <span className="btn-badge">{products.length}</span>
+        </button>
+
+        {/* togller */}
+         
+            <button className="btn menu-burger " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+               <i class="fi fi-rr-menu-burger "></i>
+            </button>
+
+            <div className="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div className="offcanvas-header">
+                  <Link to="/" className="logo">Woodex</Link>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
+                <div className="offcanvas-body">
+                <ul className="nav flex-column">
+                    <li className="nav-item">
+                        <Link className="nav-link " aria-current="page" to="/">Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/shop">Shop</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/blog">Blog</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/about">About</Link>
+                    </li>
 
-                {openWishlist && token && <Wishlist handleCloseWishlistClick = {handleCloseWishlistClick} />}
-                <div className="cart-icon" onClick={handleCartBtn}>
-                  <i className="fi fi-rr-shopping-cart"></i>
-                  <span>{products.length}</span>
+                </ul>
+                       {user.isUser?<div className='d-flex align-items-center gap-1 mt-3'><button className='btn logout-btn' onClick={()=>{dispatch( logout())}}>Logout</button>
+                        <span >Hello {user.username}</span></div>
+                        :  <Link to="/login" className="login-btn btn mt-3" aria-label="user">
+                          Login
+                        </Link>}
                 </div>
-              </div>
-              {!token ? (
-                <li className="nav-item">
-                  <Link className="nav-link auth" to="/login">
-                    Log In
-                  </Link>
-                </li>
-              ) : (
-                <>
-                  {" "}
-                  <span className="user-name-header">Hello {username}</span>
-                  <button className="auth" onClick={() => {
-                    dispatch(logout())
-                    dispatch(resetCart())
-                    dispatch(resetwishlist())
+            </div>
 
-                    }}>
-                    log out
-                  </button>
-                </>
-              )}
-            </ul>
-          </div>
-        </div>
-        {openCart && token && <Cart handleCloseCartClick={handleCloseCartClick}/>}
-      </nav>
-    </>
-  );
+      </div>
+
+    </div>
+  </header></>
+  )
 }
+
+export default NavBar

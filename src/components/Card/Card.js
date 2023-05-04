@@ -1,47 +1,41 @@
-import React, { memo, useEffect, useRef } from "react";
-import "./Card.css";
-import { Link } from "react-router-dom";
-import Aos from 'aos'
-import 'aos/dist/aos.css'
+import React from 'react'
+import './Card.css'
+import { Link } from 'react-router-dom'
 
-
-
-const Card = ({ item }) => {
-
-  useEffect(()=>{
-     
-    Aos.init()
-
-  },[])
-
+function Card({product}) {
   return (
-    <Link className="link" data-aos="zoom-in-up" data-aos-offset="100" data-aos-easing="ease-in-sine" data-aos-duration="300" to={`/product/${item.id}`}>
-      <div className="card">
-        <div className="image">
-          {item?.attributes.isNew && <span>New Season</span>}
-          <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img?.data?.attributes?.url
-            }
-            alt=""
-            className="mainImg"
-          />
-          <img
-            src={
-              process.env.REACT_APP_UPLOAD_URL + item.attributes?.img2?.data?.attributes?.url
-            }
-            alt=""
-            className="secondImg"
-          />
-        </div>
-        <h2>{item?.attributes.title}</h2>
-        <div className="prices">
-          <h3>${item.oldPrice || item?.attributes.price + 20}</h3>
-          <h3>${item?.attributes.price}</h3>
-        </div>
-      </div>
-    </Link>
-  );
-};
+    <>
+<div className="card m-2 " >
+{product?.attributes.isNew && <span className='new-season'>New Season</span>}
 
-export default memo(Card);
+<img
+            src={
+                product.attributes?.img?.data?.attributes?.url
+            }
+            alt="loading..."
+            className="card-img-top main-img"
+          />
+          <img
+            src={
+                product.attributes?.img2?.data?.attributes?.url
+            }
+            alt="loading..."
+            className="card-img-top second-img"
+          />
+  <div className="card-body">
+    <h5 className="card-title">{product.attributes.title.substring(0,20)}</h5>
+    <p className="card-text ">{product.attributes.desc}</p>
+
+        <Link to={`/product/${product.id}`} className='btn product-btn d-flex align-items-center '>
+           <span>Read More </span>
+          <i className="fi fi-rs-eye mt-2 mx-1"></i>
+        </Link>
+    
+   
+  </div>
+</div>
+    </>
+  )
+}
+
+export default Card

@@ -1,9 +1,6 @@
 .product {
-    padding: 20px 50px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    justify-content: space-evenly;
+    padding: 20px ;
+    
 }
 .product  .left {
       display: flex;
@@ -11,11 +8,21 @@
 
 }
 .product  .left  .images {
-        max-width: 200px;
+        max-width: 200px; 
+        max-height: 400px;  
+}
+
+@media(max-width:768px){
+    .product  .left  .images {
+        display: none;
+        
+} 
+
+
 }
 .product  .left  .images  img{
           width: 100%;
-          height: 150px;
+          height:49% ;
           object-fit: cover;
           cursor: pointer;
           margin-bottom: 10px;
@@ -23,7 +30,7 @@
       
         .product  .left    .mainImg {
            max-width: 500px;
-           max-height: 500px;
+           max-height: 400px;
         }
         .product  .left  .mainImg  img{
           width: 100%;
@@ -64,34 +71,16 @@
           cursor: pointer;
           border: none;
         }
-      
-  
-        .product  .right .quantity .add{
-        width: 250px;
-        padding: 10px;
-        background-color: #2879fe;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        cursor: pointer;
-        border: none;
-        font-weight: 500;
-      }
+
   
       .product  .right   .links{
         display: flex;
         gap: 20px;
       }
-      .product  .right   .links  .item{
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          color: #2879fe;
-          font-size: 14px;
-        }
-      
+   
+      .product button:is(:hover, :focus){
+         box-shadow: none;
+      }
   
         .product  .right   .info{
         display: flex;

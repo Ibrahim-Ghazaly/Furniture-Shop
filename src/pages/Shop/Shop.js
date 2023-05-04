@@ -3,6 +3,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import Card from '../../components/Card/Card'
 import "./Shop.css"
 import axios from 'axios'
+import TopImage from '../../components/TopImage/TopImage'
 
 
 function Shop() {
@@ -24,7 +25,8 @@ let lastPage = data?.data?.meta?.pagination?.pageCount;
 
 
     useEffect(()=>{
-      axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`).then(items => {
+      axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`)
+      .then(items => {
         console.log(items)
         setData(items)
         
@@ -41,30 +43,40 @@ let lastPage = data?.data?.meta?.pagination?.pageCount;
     };
 
   return (
-    <div className="featuredProducts">
+    <>
+    <TopImage name={"Shop"}/>
+     <div className="featuredProducts">
     <div className='container'>
-    <div className='searchdiv'>
-<div className="input-group mb-3">
-  <input onChange={(e)=> setSearchValue(e.target.value)} type="text" className="form-control" placeholder="search by name of product" aria-label="Recipient's username" aria-describedby="button-addon2"/>
-</div>
 
+    <div className='row mt-3 '>
+      <div className="input-group mb-3">
+        <input onChange={(e)=> setSearchValue(e.target.value)} type="text" className="form-control" placeholder="search by name of product" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+      </div>
     </div>
   
-  <div className="bottom">
+  <div className="row rows-col-3 justify-content-center">
     {data?.data?.data?.filter(product => product.attributes
-    .title.includes(searchValue)).map((item) => <Card item={item} key={item.id} />)}
-      </div>
-      </div>
-        
-      <div className='controls'>
-        <button onClick={handlePrevClick} disabled={page === 1}>
+    .title.includes(searchValue)).map((product) => <Card product={product} key={product.id} />)}
+  </div>  
+<div className='row'>
+  <div className='col-12 '>
+  <div className='controls  '>
+        <button className='btn btn-secondary' onClick={handlePrevClick} disabled={page === 1}>
           Previous
         </button>
-        <button onClick={handleNextClick} disabled={page === lastPage}>
+        <button className='btn btn-secondary' onClick={handleNextClick} disabled={page === lastPage}>
           Next
         </button>
+      </div> 
+  </div>
+</div>
+   
       </div>
+        
+ 
     </div>
+    </>
+   
   )
 }
 

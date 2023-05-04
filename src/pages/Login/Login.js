@@ -2,102 +2,80 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 import { useDispatch, useSelector } from "react-redux";
-
-import axios  from 'axios'
-import { register } from '../../redux/slices/user-slice';
-
+import {userLogin} from '../../redux/slices/user-slice'
+import TopImage from '../../components/TopImage/TopImage'
 
 function Login() {
 
   const [userName,setUserName] = useState("")
   const [password,setPassword] = useState("")
-  const [error,setError] = useState("")
-  const [msg,setMsg] = useState("")
-  const navigate =useNavigate()
-   const dispatch = useDispatch()
-    let userAuth = useSelector(state => state.user.username)
-    let token  = useSelector(state => state.user.token)
+ 
+
+    const navigate =useNavigate()
+    const dispatch = useDispatch()
+
+   const{user,isLoading,error}  = useSelector(state => state.user)
+
+   console.log(user)
+   console.log(isLoading)
+   console.log(error)
 
 
+   useEffect(()=>{
+    if(user.token && user.isUser){
+
+      setUserName("")
+      setPassword("")
+
+      setTimeout(()=>{
+           navigate("/")
+      },3000)
+
+    }
+ },[navigate,user,isLoading,error])
 
 
-const handleSubmit = (e)=>{
-
-    e.preventDefault()
-
-
-  axios.post('http://localhost:1337/api/auth/local', {
-    identifier : `${userName}`,
-    password: `${password}`,
-  })
-  .then(response => {
-    // Handle success.
-    console.log('Well done!');
-    console.log(response)
-    console.log('User profile', response.data.user);
-    console.log('User token', response.data.jwt);
-    dispatch(
-      register({
-        username:response.data.user.username,
-        token:response.data.jwt,
-        seller:response.data.user.seller,
-        userId:response.data.user.id
-
-      })
-    )
-  
-    setUserName("")
-    setPassword("")
-  setError("")
-   setMsg("You have been logged in successfully")
-
-    setTimeout(()=>{
-      navigate("/")
-     
-    },2000)
-  })
-  .catch(error => {
-    // Handle error.
-    console.log('An error occurred:', error.response);
-    setMsg("")
-    setError("An error occurred,please try again")
-  });
-
-
-
-}
-
-
-
-
+    const handleAuth = (e)=>{
+      e.preventDefault()
+        dispatch(userLogin( {
+          identifier: `${userName}`,
+          password: `${password}`,
+        }))
+       
+    }
 
   return (
- <div className='register'>
-{msg && <div className="alert alert-success" role="alert">
- {msg}
-</div>}  
+    <>
+    <TopImage name={"Login"}/>
+    <div className='container'>
+    {user.isUser && <div className="alert alert-success" role="alert">You have been logged in successfully</div>}
 
-{error && <div class="alert alert-danger" role="alert">
- {error}
-</div>}
- 
+    {error && <div className="alert alert-danger" role="alert">{error}</div>}
 
-<form className='mb-5' onSubmit={handleSubmit}>
-<div className="mb-3">
-    <label htmlFor="InputUserName" className="form-label">User Name</label>
-    <input type="text" className="form-control" id="InputUserName" onChange={(e)=>{setUserName(e.target.value)}} value={userName} />
-  </div>
-
-  <div className="mb-3">
-    <label htmlFor="InputPassword" className="form-label">Password</label>
-    <input type="password" className="form-control" id="InputPassword" onChange={(e)=>{setPassword(e.target.value)}} value={password}/>
+    <form onSubmit={handleAuth} className=' auth-form' >
+    <div class="mb-3 form-label-input">
+    <label htmlFor="exampleInputEmail1" className="form-label">User Name</label>
+    <input type="text" className="form-control" id="userName"  onChange={(e)=>{setUserName(e.target.value)}} value={userName} placeholder='User Name'/>
   </div>
  
-  <button type="submit" className="btn btn-primary">Submit</button>
-</form>
-<Link to="/register">I do not have an account sign up</Link>
+  <div className="mb-3 form-label-input">
+    <label htmlFor="password" className="form-label">Password</label>
+    <input type="password" className="form-control" id="password" onChange={(e)=>{setPassword(e.target.value)}} value={password}  placeholder='Password'/>
+  </div>
+ 
+    <button type="submit" className="btn btn-primary auth-submit-btn" disabled={isLoading}>
+    {isLoading ? <div class="spinner-border text-warning" role="status">
+    <span class="visually-hidden">Loading...</span>
+     </div> : 'Sign In'}
+      
+    </button>
 
+
+        <Link to="/register" className=' mt-5 btn text-center d-block '>Or Create An Account</Link>
+   </form>
     </div>
+   
+    </>
   )
 }
 

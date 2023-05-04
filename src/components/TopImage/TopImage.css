@@ -1,0 +1,28 @@
+.top-image{
+    width: 100%;
+    height: 300px;
+    background-color: var(--white-smoke);
+    color: black;
+    margin-top: 90px;
+}
+
+.top-image .row .col .image{
+    width: 300px;
+    height: 300px;
+}
+
+.top-image .row .col .link {
+    text-decoration: none;
+    background-color: var(--Davy-grey);
+    padding: 10px 20px;
+    color: var(--white);
+    border-radius: 10%;
+   
+}
+
+@media(max-width:768px){
+    .top-image .row .col.img{
+      display: none;
+    }
+    
+}

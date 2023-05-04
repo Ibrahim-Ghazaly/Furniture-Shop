@@ -1,71 +1,60 @@
-.link {
-    text-decoration: none;
-    border-radius: 10px;
-}
-
 .card{
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 50px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    max-width: 300px;
+    height: auto;
     overflow: hidden;
-}
-  .card  .image{
-      width: 100%;
-      height: 400px;
-      overflow: hidden;
-      position: relative;
-  }
+    transition: var(--transition-2);
 
-.card .image:hover  .secondImg{
-z-index: 2;
 }
 
-      
-  
-.card .image img{
-width: 100%;
-height: 100%;
-object-fit: cover;
-position: absolute;
+.card:hover{
+   box-shadow: var(--shadow);
+
 }
 
-.card .image .mainImg{
-z-index: 1;
+.card-img-top{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+
+}
+.card:hover .second-img{
+   z-index: 2;
 }
 
-.card span{
-position: absolute;
-top: 5px;
-left: 5px;
-background-color: white;
-color: teal;
-padding: 3px 5px;
-z-index: 3;
-font-weight: 500;
-font-size: 12px;
+.card .main-img{
+   z-index: 1;
+
+}
+.card-body{
+ margin-top: 105%;
 }
 
+.card .new-season{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: white;
+    color: teal;
+    padding: 3px 5px;
+    z-index: 3;
+    font-weight: 500;
+    font-size: 12px;
+    }
 
-.card h2{
-font-size: 16px;
-font-weight: 400;
-}
+    .card .product-btn{
+        position: absolute;
+        bottom: 0;
+        right:-130px;
+        color: var(--white);
+        background-color: var( --black);
+        transition: var(--transition-2);
+    }
 
-.card .prices{
-display: flex;
-gap: 20px;
-}
-.card h3{
-font-size: 18px;
-font-weight: 500;
-}
-.card h3:first-child{
-    color: gray;
-    text-decoration: line-through;
-}
-
-
+    .card:hover .product-btn{
+     
+        right:0;
+       
+    }

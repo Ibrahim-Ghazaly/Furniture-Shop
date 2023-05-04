@@ -1,0 +1,21 @@
+.typedproduct{
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+
+}
+
+.typedproduct .heading{
+    position: relative;
+    margin-bottom: 20px;
+}
+.typedproduct .heading::after{
+    content:"";
+    position: absolute;
+    bottom:-10px;
+    left: 10px;
+    width: 100px;
+    height: 4px;
+    background-color: var(--carrot-orange);
+
+}
+

@@ -1,23 +1,67 @@
-.register{
-    height: calc(100vh - 70px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex-direction: column;
+.auth-form {
+    width:60%;
+    margin:100px auto;
+   }
+
+   @media(max-width:768px){
+    .auth-form {
+        width:80%;
+        
+       }
+   }
+
+   input::placeholder{
+    transition: var(--transition-1);
+   }
+
+   /* .auth-form .form-label{
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-2);
+   } */
+
+
+
+   .auth-form input:focus::placeholder{
+     opacity: 0;
+     visibility: hidden;
+   }
+
+   /* .auth-form .form-label-input .form-control:last-child ~ .form-label{
+    opacity: 1;
+    visibility: visible;
+   } */
+
+   .auth-form .auth-submit-btn{
+    width: fit-content;
+    background-color:var(--Davy-grey);
+   }
+
+
+   .auth-form  input:is(:hover, :focus), .auth-form button:is(:hover,:focus){
+    box-shadow: none;
+    outline: none;
     
-}
+ }
 
-.register form{
-    width: 50%;
-    display: block;
-}
+ .auth-form  input:is(:hover, :focus){
+    border: 1px solid var(--Davy-grey);
+   
+ }
 
-.register form .btn-primary{
-    background-color: var(--main-color);
-    border-color: var(--main-color);
-}
+ .auth-form input {
+       border: 1px solid var(--Davy-grey);
+ }
 
-.register form .btn-primary:hover{
-    background-color: var(--color-light);
-}
+ .auth-form .auth-submit-btn{
+    border: none;
+    background-color: var(--black);
+    color: var(--white);
+    width: 100%;
+    margin-top: 25px;
+     
+ }
+ .auth-form .auth-submit-btn:hover{
+    background-color: var(--lemon-grace);
+     
+ }

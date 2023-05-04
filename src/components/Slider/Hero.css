@@ -1,0 +1,46 @@
+.hero{
+    height: 100vh;
+    background-color: var(--Alabaster);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.hero .row:first-child .hero-content{
+  max-width: 80%;
+}
+.hero .row .hero-image{
+    position: relative;
+    animation-name:top-and-down ;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes top-and-down{
+
+    0%,100%{
+      top:0;
+    }
+      50%{
+     top:-20px
+    } 
+    
+  }
+
+@media(max-width:768px){
+    .hero .row:first-child .hero-content{
+        max-width: 100%;
+      }
+}
+
+ .hero .hero-btn{
+    border: 1px solid var(--Davy-grey);
+    padding: 10px 30px;
+    border-radius: 0;
+ }
+
+ .hero .hero-btn:hover{
+    background-color:  var(--iron-side-grey);
+ }

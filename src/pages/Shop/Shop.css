@@ -1,37 +1,19 @@
-.searchdiv .form-control:focus{
-    box-shadow: none }
 
-  .featuredProducts{
-    position: relative;
-  }  
 
   .controls{
-  
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%,20px) ;
-    bottom: -20px;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    z-index: 10;
-
-  }
-
-  .controls > button {
-    all:unset;
-    width: 80px;
-    height: 40px;
-    background-color: var(--main-color);
-    border-radius:10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
-    transition: .5s;
-    cursor: pointer;
+    gap: 20px;
+    z-index: 10;
+    margin: 50px auto;
   }
+
 
   .controls > button:disabled {
      opacity: .5;
+  }
+
+  button:is(:hover, :focus),.searchdiv .form-control:is(:hover, :focus){
+    box-shadow: none;
   }

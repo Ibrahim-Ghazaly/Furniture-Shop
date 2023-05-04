@@ -1,36 +1,139 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios'
+
+export const userAuth = createAsyncThunk("Auth/userAuth",async(data,{ rejectWithValue })=>{
+    try {
+  
+    // Handle success.
+    const res =await axios.post(`${process.env.REACT_APP_API_URL}/auth/local/register`,data)
+    const response = await res.data 
+    console.log(response)
+    return response
+  
+  
+ }catch (error){
+      console.log(error.message)
+     // return custom error message from backend if present
+     if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message)
+    } else {
+      return rejectWithValue(error.message)
+    }
+  }
+})
 
 
-const initialState = {
-  username: "",
-  token: "",
-  seller :"",
-  userId:"",
-  profileImg:""
-};
+export const userLogin = createAsyncThunk("Auth/userLogin",async(data,{ rejectWithValue })=>{
+  try {
+
+  // Handle success.
+  const res =await axios.post(`${process.env.REACT_APP_API_URL}/auth/local`,data)
+  const response = await res.data 
+  console.log(response)
+  return response
+
+
+}catch (error){
+  console.log(error.message)
+  // return custom error message from backend if present
+  if (error.response && error.response.data.message) {
+   return rejectWithValue(error.response.data.message)
+ } else {
+   return rejectWithValue(error.message)
+ }
+}
+})
 
 export const userSlice = createSlice({
-  name: "register",
-  initialState,
-  reducers: {
-    register: (state, action) => {
-     state.username = action.payload.username
-     state.token = action.payload.token
-     state.seller = action.payload.seller
-     state.userId = action.payload.userId
+  name: "Auth",
+  initialState:{user:{
+    username:"",
+    token:"",
+    isUser:false
+  },isLoading:false,error:null},
+  reducers:{
 
-    },
     logout:(state,action) =>{
-      state.username = ""
-      state.token = ""
-      state.seller = ""
-      state.userId = ""
+      state.user.username= ""
+      state.user.token= ""
+      state.user.isUser= false
+      state.error = null
+      state.isLoading = false
 
     }
   },
+  extraReducers:(builder => {
+
+    // register New user 
+
+    // pending 
+  builder.addCase(userAuth.pending,(state,action)=>{
+    console.log(action)
+    state.isLoading = true
+    state.error = null
+
+  })
+
+  // fullfilled
+  builder.addCase(userAuth.fulfilled,(state,action)=>{
+    console.log(action)
+    state.isLoading = false
+    state.user.isUser =true
+    state.user.username =action.payload.user.username
+    state.user.token =action.payload.jwt
+    
+
+
+    
+  })
+
+  // rejected
+
+  builder.addCase(userAuth.rejected,(state,action)=>{
+    console.log(action)
+     state.isLoading = false
+     state.error =action.payload
+  
+  })
+
+
+      // Login user 
+
+    // pending 
+    builder.addCase(userLogin.pending,(state,action)=>{
+      console.log(action)
+      state.isLoading = true
+      state.error = null
+  
+    })
+  
+    // fullfilled
+    builder.addCase(userLogin.fulfilled,(state,action)=>{
+      console.log(action)
+      state.isLoading = false
+      state.user.isUser =true
+      state.user.username =action.payload.user.username
+      state.user.token =action.payload.jwt
+  
+  
+      
+    })
+  
+    // rejected
+  
+    builder.addCase(userLogin.rejected,(state,action)=>{
+      console.log(action)
+       state.isLoading = false
+       state.error =action.payload
+    
+    })
+
+})
+
+  
 });
 
 // Action creators are generated for each case reducer function
-export const {register,logout } = userSlice.actions;
+export const {logout } = userSlice.actions;
 
 export default userSlice.reducer;

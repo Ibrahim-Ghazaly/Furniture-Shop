@@ -1,110 +1,89 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 import { useDispatch, useSelector } from "react-redux";
-import axios  from 'axios'
-import { register } from '../../redux/slices/user-slice';
-
+import {userAuth} from '../../redux/slices/user-slice'
+import TopImage from '../../components/TopImage/TopImage'
 
 function Register() {
 
   const [userName,setUserName] = useState("")
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
-  const [seller,setIsSeller] = useState(false)
-  const [image,setImage]=useState("")
-  const [error,setError] = useState("")
-  const [msg,setMsg] = useState("")
-
-  const navigate =useNavigate()
-   const dispatch = useDispatch()
-    let userAuth = useSelector(state => state.user.username)
-    let token  = useSelector(state => state.user.token)
-
-
-const handleSubmit = async (e)=>{
-  axios
-  .post('http://localhost:1337/api/auth/local/register', {
-    username: `${userName}`,
-    email: `${email}`,
-    password: `${password}`,
-    seller:`${seller}`,
-   
-  })
-  .then(response => {
-    // Handle success.
-    console.log(response)
-    console.log('Well done!');
-    console.log('User profile', response.data.user);
-    console.log('User token', response.data.jwt);
-    dispatch(
-      register({
-        username:response.data.user.username,
-        token:response.data.jwt,
-        seller:response.data.user.seller,
-        userId:response.data.user.id,
-      })
-    )
-  
-    setEmail("")
-    setUserName("")
-    setPassword("")
-
-    setError("")
-    setMsg("You have been registerd in successfully")
-
-    setTimeout(()=>{
-      navigate("/")
-    },2000)
  
 
-  })
-  .catch(error => {
-    // Handle error.
-    console.log('An error occurred:', error.response);
-    setMsg("")
-    setError("An error occurred,please try again")
-  });
+    const navigate =useNavigate()
+    const dispatch = useDispatch()
+
+   const{user,isLoading,error}  = useSelector(state => state.user)
+
+   console.log(user)
+   console.log(isLoading)
+   console.log(error)
 
 
-}
+   useEffect(()=>{
+      if(user.token && user.isUser){
+        setEmail("")
+        setUserName("")
+        setPassword("")
+
+        setTimeout(()=>{
+             navigate("/")
+        },3000)
+
+      }
+   },[navigate,user,isLoading,error])
 
 
+    const handleAuth = (e)=>{
+      e.preventDefault()
+        dispatch(userAuth( {
+          username: `${userName}`,
+          email: `${email}`,
+          password: `${password}`,
+        }))
+       
+    }
 
   return (
-<div className='register'>
-{msg && <div class="alert alert-success" role="alert">
- {msg}
-</div>}  
+    <>
+    <TopImage name={"Register"}/>
+    <div className='container'>
+    {user.isUser && <div className="alert alert-success" role="alert">You create your account successfully</div>}
 
-{error && <div class="alert alert-danger" role="alert">
- {error}
-</div>}
-<form className='mb-5' onSubmit={handleSubmit}>
-<div className="mb-3">
-    <label htmlFor="InputUserName" className="form-label">User Name</label>
-    <input type="text" className="form-control" id="InputUserName" onChange={(e)=>{setUserName(e.target.value)}} value={userName} />
+    {error && <div className="alert alert-danger" role="alert">{error}</div>}
+    {/* {isLoading && <div className="loader"></div>} */}
+
+    <form onSubmit={handleAuth} className=' auth-form' >
+    <div class="mb-3 form-label-input">
+    <label htmlFor="exampleInputEmail1" className="form-label">User Name</label>
+    <input type="text" className="form-control" id="userName"  onChange={(e)=>{setUserName(e.target.value)}} value={userName} placeholder='User Name'/>
+    {/* <div id="userName" className="form-text">We'll never share your email with anyone else.</div> */}
   </div>
-  <div className="mb-3">
-    <label htmlFor="InputEmail" className="form-label">Email address</label>
-    <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" onChange={(e)=>{setEmail(e.target.value)}} value={email}/>
+  <div className="mb-3 form-label-input">
+    <label htmlFor="email" className="form-label">Email </label>
+    <input type="email" className="form-control" id="email" aria-describedby="emailHelp" onChange={(e)=>{setEmail(e.target.value)}} value={email}  placeholder='Email'/>
     {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
   </div>
-  <div className="mb-3">
-    <label htmlFor="InputPassword" className="form-label">Password</label>
-    <input type="password" className="form-control" id="InputPassword" onChange={(e)=>{setPassword(e.target.value)}} value={password}/>
+  <div className="mb-3 form-label-input">
+    <label htmlFor="password" className="form-label">Password</label>
+    <input type="password" className="form-control" id="password" onChange={(e)=>{setPassword(e.target.value)}} value={password}  placeholder='Password'/>
   </div>
  
-  <div class="form-check form-switch mb-3" >
-  <input className="form-check-input" type="checkbox" id="sellerInput" style={{cursor:"pointer"}} onClick={(e)=> setIsSeller(e.target.checked)}/>
-  <label className="form-check-label" htmlFor="sellerInput">Are You seller</label>
-</div>
- 
-  <button type="submit" className="btn btn-primary">Submit</button>
-</form>
-<Link to="/login">already i have an account log in</Link>
+    <button type="submit" className="btn btn-primary auth-submit-btn" disabled={isLoading}>
+    {isLoading ? <div class="spinner-border text-warning" role="status">
+       <span class="visually-hidden">Loading...</span>
+     </div>: 'Register'}
 
+    </button>
+
+
+        <Link to="/login" className=' mt-5 btn text-center d-block '>Or Login</Link>
+   </form>
     </div>
+   
+    </>
   )
 }
 

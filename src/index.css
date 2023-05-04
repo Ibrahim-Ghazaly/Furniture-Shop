@@ -1,3 +1,105 @@
 @import "~@flaticon/flaticon-uicons/css/all/all";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+:root {
+
+    /**
+     * colors
+     */
+  
+     --black: hsl(0, 0%, 0%);
+    --iron-side-grey:#666666;
+    --lemon-grace:#999999;
+    --pastle-grey:#ccc;
+    --iron:#d7d7d7;
+    --Lavender-Pinocchio:#e1e1e1;
+    --lava-red:#e80d0d;
+    --green-white:#e9e9e9;
+    --seashell:#f0f0f0;
+    --Alabaster:#fafafa;
+    --Dark-Jungle-Green:#222222;
+    --Dune:#333333;
+    --Davy-grey:#555555;
+    --white-smoke:#F5F5F5;
+    --carrot-orange:#f7941d;
+    --white: hsl(0, 0%, 100%);
+  
+    /**
+     * typography
+     */
+
+  
+    --fs-1: 6rem;
+    --fs-2: 3rem;
+    --fs-3: 2rem;
+    --fs-4: 1.8rem;
+    --fs-5: 1.4rem;
+    --fs-6: 1.2rem;
+    --fw-700: 700;
+    --fw-500: 500;
+  
+    /**
+     * spacing
+     */
+  
+    --section-padding: 50px;
+  
+    /**
+     * shadow
+     */
+  
+    --shadow: 0 0 5px hsla(0, 0%, 0%, 0.2);
+  
+    /**
+     * transition
+     */
+  
+    --transition-1: 0.25s ease;
+    --transition-2: 0.5s ease;
+  
+  } 
+
+  
+  
+  
+  /*-----------------------------------*\
+    #RESET
+  \*-----------------------------------*/
+ 
+  
+  html {
+    font-family: 'Source Sans Pro', sans-serif;
+  
+    scroll-behavior: smooth;
+  }
+  
+  body {
+   
+    line-height: 1.7;
+    /* background-color: var(--pastle-grey); */
+  }
+ 
+
+  
+  .loader {
+    margin: auto;
+    border: 20px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 20px solid var(--carrot-orange);
+    width: 100px;
+    height: 100px;
+    animation: spinner 4s linear infinite;
+
+  }
+  
+
+    @keyframes spinner {
 
 
+      0% { transform: rotate(0deg); }
+    
+    
+      100% { transform: rotate(360deg); }
+    
+    
+    }

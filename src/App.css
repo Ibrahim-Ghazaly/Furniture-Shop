@@ -6,36 +6,12 @@
     padding: 0;
     margin: 0;
   }
-  :root {
-    --main-color: #795438;
-    --main-color-alt:rgb(241, 219, 201);
-    --main-color-alt-2:rgba(241, 219, 201,.2);
-
-    --color-light:rgb(208, 164, 130);
-    --color-light-2:rgba(208, 164, 130,.8);
-    --color-page:#Bc9c8e; 
-    --color-gray:#766f62;
-     --white:#fff;
-    --main-transition: 0.3s;
-    --second-transition: .6s;
-    --main-padding-top: 100px;
-    --main-padding-bottom: 100px;
-    --section-background: #ececec;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    font-family: "Cairo", sans-serif;
-  }
 
   ul{
     list-style: none;
   }
-  
-  a {text-decoration: none;}
 
-  .App{
-    background-color: var(  --main-color-alt-2);
-    
+  a{
+    text-decoration: none;
   }
+

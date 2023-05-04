@@ -1,68 +1,80 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./Product.css";
-import useFetch from "../../hooks/useFetch";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/slices/cart-slice";
 import { addToWishlist } from "../../redux/slices/cart-slice";
+import axios from "axios";
+import TopImage from "../../components/TopImage/TopImage";
 
 const Product = () => {
   const id = useParams().id;
   const [selectedImg, setSelectedImg] = useState("img");
   const [quantity, setQuantity] = useState(1);
-  const token = useSelector((state) => state.user.token);
+  const{user}  = useSelector(state => state.user)
+  const [data,setData] = useState([])
+  const [err,setErr]=useState(null)
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const { data, loading, error } = useFetch(
-    `${process.env.REACT_APP_API_URL}/products/${id}?populate=*`
-  );
+  useEffect(()=>{
+    setLoading(true)
+    axios.get(`${process.env.REACT_APP_API_URL}/products/${id}?populate=*`)
+    .then(res =>  {
+     console.log(res.data)
+     setLoading(false)
+    return setData(res.data)
+    }).catch(err => {
+     setLoading(false)
+     console.log(err)
+      return setErr(err)
+    })
+ },[dispatch])
 
   return (
-    <div className="product">
-      {loading ? (
-       <div className="spinner-grow" role="status">
-       <span className="visually-hidden">Loading...</span>
-     </div>
-      ) : (
-        <>
-          <div className="left">
-            <div className="images">
-              <img
+    <>
+    <TopImage name={"Single Product"}/>
+      <div className="product">
+      <div className='container'>
+    {err && <div class="alert alert-danger" role="alert">{err}</div>}
+    {loading && <div className="loader"></div>}
+    <>
+    <div className="row g-5">
+    <div className="col-lg-6 left">
+            <div className="images ">
+             <img
                 src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes?.img?.data?.attributes?.url
+                  data?.data?.attributes?.img?.data?.attributes?.url
                 }
                 alt=""
                 onClick={(e) => setSelectedImg("img")}
               />
               <img
                 src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes?.img2?.data?.attributes?.url
+                  data?.data?.attributes?.img2?.data?.attributes?.url
                 }
                 alt=""
                 onClick={(e) => setSelectedImg("img2")}
-              />
+              /> 
             </div>
             <div className="mainImg">
               <img
                 src={
-                  process.env.REACT_APP_UPLOAD_URL +
-                  data?.attributes[selectedImg]?.data?.attributes?.url
+                  data?.data?.attributes[selectedImg]?.data?.attributes?.url
                 }
                 alt=""
               />
             </div>
           </div>
-          <div className="right">
-            <h1>{data?.attributes?.title}</h1>
-            <span className="price">${data?.attributes?.price}</span>
-            <p>{data?.attributes?.desc}</p>
+          <div className="col-lg-6 right">
+            <h3>{data?.data?.attributes?.title}</h3>
+            <span className="price">${data?.data?.attributes?.price}</span>
+            <p>{data?.data?.attributes?.desc}</p>
             <div className="quantity">
-              <button
+              <button className="btn btn-secondary"
                 onClick={() =>
                   setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
                 }
@@ -70,20 +82,20 @@ const Product = () => {
                 -
               </button>
               {quantity}
-              <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+              <button className="btn btn-secondary" onClick={() => setQuantity((prev) => prev + 1)}>+</button>
             </div>
             <button
-              className="add"
+              className=" btn btn-secondary"
               onClick={() =>
-                !token
+                !user.isUser
                   ? navigate("/login", { replace: true })
                   : dispatch(
                       addToCart({
-                        id: data.id,
-                        title: data.attributes.title,
-                        desc: data.attributes.desc,
-                        price: data.attributes.price,
-                        img: data.attributes.img.data.attributes.url,
+                        id: data.data.id,
+                        title: data.data.attributes.title,
+                        desc: data.data.attributes.desc,
+                        price: data.data.attributes.price,
+                        img: data.data.attributes.img.data.attributes.url,
                         quantity,
                       })
                     )
@@ -93,18 +105,18 @@ const Product = () => {
             </button>
             <div className="links">
               <div
-                className="item"
+                className=" btn btn-primary"
                 style={{ cursor: "pointer" }}
                 onClick={() =>
-                  !token
+                  !user.isUser
                     ? navigate("/login", { replace: true })
                     : dispatch(
                         addToWishlist({
-                          id: data.id,
-                          title: data.attributes.title,
-                          desc: data.attributes.desc,
-                          price: data.attributes.price,
-                          img: data.attributes.img.data.attributes.url,
+                          id: data.data.id,
+                          title: data.data.attributes.title,
+                          desc: data.data.attributes.desc,
+                          price: data.data.attributes.price,
+                          img: data.data.attributes.img.data.attributes.url,
                           quantity,
                         })
                       )
@@ -126,10 +138,16 @@ const Product = () => {
               <hr />
               <span>FAQ</span>
             </div>
-          </div>
-        </>
-      )}
+          </div> 
     </div>
+       
+         </>
+      )
+    </div>
+    </div>
+
+    </>
+  
   );
 };
 

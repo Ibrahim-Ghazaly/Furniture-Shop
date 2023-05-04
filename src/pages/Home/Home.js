@@ -1,8 +1,7 @@
 import React,{useEffect} from 'react'
-import { useSelector,useDispatch } from 'react-redux'
-import Slider from '../../components/Slider/Slider'
+import Hero from '../../components/Slider/Hero'
 import './Home.css'
-import FeaturedProducts from '../../components/FeaturedProducts/FeaturedProducts'
+import TypedProducts from '../../components/TypedProducts/TypedProducts'
 import Category from '../../components/category/category'
 
 
@@ -12,11 +11,12 @@ function Home() {
   return (
 
     <>
-       <Slider/>
-      <FeaturedProducts type ={"featured"}/>
+      <Hero/>
+      <TypedProducts type ={"featured"}/>
       <Category/>
-      <FeaturedProducts type ={"trending"}/>
+      <TypedProducts type ={"trending"}/>  
   
+   
 
   
     </>
