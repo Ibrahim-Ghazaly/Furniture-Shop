@@ -1,6 +1,8 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
+             //  Get all products 
+
 export const getProducts = createAsyncThunk("product/getProducts",async(type,{ rejectWithValue })=>{
     try {
        const res =await axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*`)
@@ -13,10 +15,11 @@ export const getProducts = createAsyncThunk("product/getProducts",async(type,{ r
     }
 })
 
+             //  Get  products by category ID
+                             
+
 export const getFilterdProducts = createAsyncThunk("product/getFilterdProducts",async({catId},{ rejectWithValue })=>{
-  // console.log(subCats)
-  // console.log(maxPrice)
-  // console.log(sort)
+  
   console.log(catId)
   try {
      const res =await axios.get( `${ process.env.REACT_APP_API_URL}/products?populate=*&[filters][categories][id]=${catId}`)
@@ -42,6 +45,8 @@ const productSlice = createSlice({
     },
     reducers:{},
     extraReducers:(builder => {
+
+          // Get all products 
 
         // pending 
       builder.addCase(getProducts.pending,(state,action)=>{
@@ -69,6 +74,8 @@ const productSlice = createSlice({
       
       })
 
+
+      //  Get Products By category Id 
 
            // pending 
            builder.addCase(getFilterdProducts.pending,(state,action)=>{

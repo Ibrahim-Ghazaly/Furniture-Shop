@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 function Card({product}) {
   return (
     <>
-<div className="card m-2 " >
-{product?.attributes.isNew && <span className='new-season'>New Season</span>}
+<div className="card m-2  fade-up" >
+          {product?.attributes.isNew && <span className='new-season'>New Season</span>}
 
-<img
+          <img
             src={
                 product.attributes?.img?.data?.attributes?.url
             }

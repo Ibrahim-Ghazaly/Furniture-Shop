@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import Hero from '../../components/Slider/Hero'
+import Hero from '../../components/Hero/Hero'
 import './Home.css'
 import TypedProducts from '../../components/TypedProducts/TypedProducts'
 import Category from '../../components/category/category'

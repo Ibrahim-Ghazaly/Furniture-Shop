@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 
 
 
-//   const fadeImages = ["https://images.pexels.com/photos/6070190/pexels-photo-6070190.jpeg?auto=compress&cs=tinysrgb&w=600",
-//   "https://images.pexels.com/photos/7031737/pexels-photo-7031737.jpeg?auto=compress&cs=tinysrgb&w=600",
-// "https://images.pexels.com/photos/6758245/pexels-photo-6758245.jpeg?auto=compress&cs=tinysrgb&w=600"]
 
 const Hero = () => {
   return (

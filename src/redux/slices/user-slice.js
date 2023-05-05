@@ -1,6 +1,8 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
+    //  Register New User 
+
 export const userAuth = createAsyncThunk("Auth/userAuth",async(data,{ rejectWithValue })=>{
     try {
   
@@ -22,6 +24,7 @@ export const userAuth = createAsyncThunk("Auth/userAuth",async(data,{ rejectWith
   }
 })
 
+               //  Login user 
 
 export const userLogin = createAsyncThunk("Auth/userLogin",async(data,{ rejectWithValue })=>{
   try {
@@ -52,7 +55,9 @@ export const userSlice = createSlice({
     isUser:false
   },isLoading:false,error:null},
   reducers:{
-
+      
+    // Logout Action 
+        
     logout:(state,action) =>{
       state.user.username= ""
       state.user.token= ""

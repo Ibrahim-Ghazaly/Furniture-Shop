@@ -1,6 +1,10 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
+
+
+        //  Get all categories 
+
 export const getCategory = createAsyncThunk("category/getCategory",async(type,{ rejectWithValue })=>{
     try {
        const res =await axios.get(`${process.env.REACT_APP_API_URL}/categories?populate=*`)
