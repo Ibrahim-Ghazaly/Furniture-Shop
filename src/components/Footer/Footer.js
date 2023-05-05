@@ -7,7 +7,7 @@ function Footer() {
   return (
         <>
 
-         <footer className="footer ">
+         <footer className="footer">
         <div className="footer-top bg-1">
             <div className="container">
                 <div className="row">
