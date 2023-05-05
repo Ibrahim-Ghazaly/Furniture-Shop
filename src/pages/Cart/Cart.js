@@ -42,7 +42,7 @@ function Cart() {
       setLoading(false)
       setErr(err)
       console.log(err);
-      // navigate("/")
+      navigate("/")
     }
   };
 
