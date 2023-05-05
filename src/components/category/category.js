@@ -21,6 +21,8 @@ function Category() {
   return (
     <div className='category'>
     <div class="container overflow-hidden text-center">
+    {error && <div class="alert alert-danger" role="alert">{error}</div>}
+    {isLoading && <div className="loader"></div>}
     <div class="row justify-content-center align-items-center">
           <div class="col-12 col-md-3 p-0">
             <Link to={`/products/${categories?.data?.[0].id}`} className="cat-card">  
