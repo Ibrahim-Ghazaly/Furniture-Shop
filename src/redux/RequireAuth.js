@@ -1,16 +1,16 @@
-// import { Navigate, useLocation } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-// const RequireAuth = ({ children }) => {
+const RequireAuth = ({ children }) => {
     
-//     const seller = useSelector(state => state.user.seller)
-//     const location = useLocation();
+    const user = useSelector(state => state.user.user.isUser)
+    const location = useLocation();
 
-//   if (!seller) {
-//     return <Navigate to="/login" state={{ path: location.pathname }} />;
-//   }
+  if (!user) {
+    return <Navigate to="/login" state={{ path: location.pathname }} />;
+  }
 
-//   return children;
-// };
+  return children;
+};
 
-// export default RequireAuth;
+export default RequireAuth;
