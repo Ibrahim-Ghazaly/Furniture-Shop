@@ -7,10 +7,10 @@ export const getProducts = createAsyncThunk("product/getProducts",async(type,{ r
     try {
        const res =await axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*`)
        const data = await res.data 
-       console.log(data)
+      //  console.log(data)
        return data
     }catch (err){
-      console.log(err.message)
+      // console.log(err.message)
       return rejectWithValue(err.message)
     }
 })
