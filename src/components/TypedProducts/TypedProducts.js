@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,memo } from 'react'
 import { useDispatch ,useSelector} from 'react-redux'
 import { getProducts } from '../../redux/slices/product-slice'
 import Card from '../Card/Card'
@@ -48,4 +48,4 @@ function TypedProducts({type}) {
   )
 }
 
-export default TypedProducts
+export default memo(TypedProducts) 

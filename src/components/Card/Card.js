@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{memo} from 'react'
 import './Card.css'
 import { Link } from 'react-router-dom'
 
@@ -38,4 +38,4 @@ function Card({product}) {
   )
 }
 
-export default Card
+export default memo(Card)
