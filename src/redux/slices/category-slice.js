@@ -9,7 +9,7 @@ export const getCategory = createAsyncThunk("category/getCategory",async(type,{ 
     try {
        const res =await axios.get(`${process.env.REACT_APP_API_URL}/categories?populate=*`)
        const data = await res.data 
-       console.log(data)
+      //  console.log(data)
        return data
     }catch (error){
       console.log(error.message)
@@ -31,7 +31,7 @@ export const getCategory = createAsyncThunk("category/getCategory",async(type,{ 
 
         // pending 
       builder.addCase(getCategory.pending,(state,action)=>{
-        console.log(action)
+        // console.log(action)
         state.isLoading = true
         state.error = null
    
@@ -39,7 +39,7 @@ export const getCategory = createAsyncThunk("category/getCategory",async(type,{ 
 
       // fullfilled
       builder.addCase(getCategory.fulfilled,(state,action)=>{
-        console.log(action)
+        // console.log(action)
         state.isLoading = false
         state.categories = action.payload
 
@@ -49,7 +49,7 @@ export const getCategory = createAsyncThunk("category/getCategory",async(type,{ 
       // rejected
 
       builder.addCase(getCategory.rejected,(state,action)=>{
-        console.log(action)
+        // console.log(action)
          state.isLoading = false
          state.error =action.payload
       

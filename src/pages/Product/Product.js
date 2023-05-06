@@ -24,12 +24,12 @@ const Product = () => {
     setLoading(true)
     axios.get(`${process.env.REACT_APP_API_URL}/products/${id}?populate=*`)
     .then(res =>  {
-     console.log(res.data)
+    //  console.log(res.data)
      setLoading(false)
     return setData(res.data)
     }).catch(err => {
      setLoading(false)
-     console.log(err)
+    //  console.log(err)
       return setErr(err)
     })
  },[dispatch])

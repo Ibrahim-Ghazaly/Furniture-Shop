@@ -4,7 +4,6 @@ import img from '../../images/asset 25.jpeg'
 import './TopImage.css'
 
 function TopImage({name}) {
-    console.log(name)
   return (
     <>
     <div className='top-image d-flex  align-items-center justify-content-center'>

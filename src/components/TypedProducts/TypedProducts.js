@@ -1,51 +1,45 @@
-import React, { useEffect,memo } from 'react'
-import { useDispatch ,useSelector} from 'react-redux'
-import { getProducts } from '../../redux/slices/product-slice'
-import Card from '../Card/Card'
-import './TypedProducts.css'
+import React, { useEffect, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/slices/product-slice";
+import Card from "../Card/Card";
+import "./TypedProducts.css";
 
-function TypedProducts({type}) {
+function TypedProducts({ type }) {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
-  
-  useEffect(()=>{
-    dispatch(getProducts())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
-  const {items,isLoading,error} = useSelector(state => state.products.products)
-  console.log(items)
-  console.log(error)
-
+  const { items, isLoading, error } = useSelector(
+    (state) => state.products.products
+  );
 
   return (
-
     <>
-    <div className='typedproduct'>
-    <div className='container'>
-    {error && <div class="alert alert-danger" role="alert">{error}</div>}
-    {isLoading && <div className="loader"></div>}
+      <div className="typedproduct">
+        <div className="container">
+          {error && (
+            <div class="alert alert-danger" role="alert">
+              {error}
+            </div>
+          )}
+          {isLoading && <div className="loader"></div>}
 
-      <div className='row mb-5'>
-        <h2 className='heading'>{type} products</h2>
+          <div className="row mb-5">
+            <h2 className="heading">{type} products</h2>
+          </div>
+          <div className="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 justify-content-center ">
+            {items?.data
+              ?.filter((item) => item.attributes.type === type)
+              ?.map((product) => {
+                return <Card product={product} key={product.id} />;
+              })}
+          </div>
+        </div>
       </div>
-      <div className='row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 justify-content-center '>
-
-        {items?.data?.filter(item => item.attributes.type === type)?.map(product =>{
-           return  <Card product={product} key={product.id} />
-        })
-      }
-      </div>
-     
-    </div>
-    </div>
-   
-     
-        
-
     </>
-    
-  )
+  );
 }
 
-export default memo(TypedProducts) 
+export default memo(TypedProducts);

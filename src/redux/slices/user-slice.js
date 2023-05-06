@@ -9,12 +9,12 @@ export const userAuth = createAsyncThunk("Auth/userAuth",async(data,{ rejectWith
     // Handle success.
     const res =await axios.post(`${process.env.REACT_APP_API_URL}/auth/local/register`,data)
     const response = await res.data 
-    console.log(response)
+    // console.log(response)
     return response
   
   
  }catch (error){
-      console.log(error.message)
+      // console.log(error.message)
      // return custom error message from backend if present
      if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message)
@@ -32,7 +32,7 @@ export const userLogin = createAsyncThunk("Auth/userLogin",async(data,{ rejectWi
   // Handle success.
   const res =await axios.post(`${process.env.REACT_APP_API_URL}/auth/local`,data)
   const response = await res.data 
-  console.log(response)
+  // console.log(response)
   return response
 
 
@@ -73,7 +73,7 @@ export const userSlice = createSlice({
 
     // pending 
   builder.addCase(userAuth.pending,(state,action)=>{
-    console.log(action)
+    // console.log(action)
     state.isLoading = true
     state.error = null
 
@@ -81,7 +81,7 @@ export const userSlice = createSlice({
 
   // fullfilled
   builder.addCase(userAuth.fulfilled,(state,action)=>{
-    console.log(action)
+    // console.log(action)
     state.isLoading = false
     state.user.isUser =true
     state.user.username =action.payload.user.username
@@ -95,7 +95,7 @@ export const userSlice = createSlice({
   // rejected
 
   builder.addCase(userAuth.rejected,(state,action)=>{
-    console.log(action)
+    // console.log(action)
      state.isLoading = false
      state.error =action.payload
   
@@ -106,7 +106,7 @@ export const userSlice = createSlice({
 
     // pending 
     builder.addCase(userLogin.pending,(state,action)=>{
-      console.log(action)
+      // console.log(action)
       state.isLoading = true
       state.error = null
   
@@ -114,7 +114,7 @@ export const userSlice = createSlice({
   
     // fullfilled
     builder.addCase(userLogin.fulfilled,(state,action)=>{
-      console.log(action)
+      // console.log(action)
       state.isLoading = false
       state.user.isUser =true
       state.user.username =action.payload.user.username

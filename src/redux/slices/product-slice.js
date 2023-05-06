@@ -24,10 +24,10 @@ export const getFilterdProducts = createAsyncThunk("product/getFilterdProducts",
   try {
      const res =await axios.get( `${ process.env.REACT_APP_API_URL}/products?populate=*&[filters][categories][id]=${catId}`)
      const data = await res.data 
-     console.log(data)
+    //  console.log(data)
      return data
   }catch (err){ 
-    console.log(err.message)
+    // console.log(err.message)
     return rejectWithValue(err.message)
   }
 })
@@ -50,7 +50,7 @@ const productSlice = createSlice({
 
         // pending 
       builder.addCase(getProducts.pending,(state,action)=>{
-        console.log(action)
+        // console.log(action)
         state.products.isLoading = true
         state.products.error = null
    
@@ -58,7 +58,7 @@ const productSlice = createSlice({
 
       // fullfilled
       builder.addCase(getProducts.fulfilled,(state,action)=>{
-        console.log(action)
+        // console.log(action)
         state.products.isLoading = false
         state.products.items = action.payload
 
@@ -68,7 +68,7 @@ const productSlice = createSlice({
       // rejected
 
       builder.addCase(getProducts.rejected,(state,action)=>{
-        console.log(action)
+        // console.log(action)
          state.products.isLoading = false
          state.products.error =action.payload
       
@@ -79,7 +79,7 @@ const productSlice = createSlice({
 
            // pending 
            builder.addCase(getFilterdProducts.pending,(state,action)=>{
-            console.log(action)
+            // console.log(action)
             state.filterdProducts.isLoading = true
             state.filterdProducts.error = null
        
@@ -87,7 +87,7 @@ const productSlice = createSlice({
     
           // fullfilled
           builder.addCase(getFilterdProducts.fulfilled,(state,action)=>{
-            console.log(action)
+            // console.log(action)
             state.filterdProducts.isLoading = false
             state.filterdProducts.items = action.payload
     
@@ -97,7 +97,7 @@ const productSlice = createSlice({
           // rejected
     
           builder.addCase(getFilterdProducts.rejected,(state,action)=>{
-            console.log(action)
+            // console.log(action)
              state.filterdProducts.isLoading = false
              state.filterdProducts.error =action.payload
           

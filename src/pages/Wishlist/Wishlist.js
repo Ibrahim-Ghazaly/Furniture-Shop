@@ -7,7 +7,7 @@ import { removeItemWishlist,resetwishlist } from '../../redux/slices/cart-slice'
 function Wishlist() {
 
     const products = useSelector((state) => state.cartWishList.wishlist);
-    console.log(products)
+    
     const dispatch = useDispatch()
   return (
         <>

@@ -1,6 +1,24 @@
 @import "~@flaticon/flaticon-uicons/css/all/all";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
 
+
+/* Start Global Rules */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
 :root {
 
     /**
@@ -92,6 +110,8 @@
 
   }
   
+
+/* animations */
 
     @keyframes spinner {
 

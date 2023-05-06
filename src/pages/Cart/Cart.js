@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 function Cart() {
 
   const products = useSelector((state) => state.cartWishList.cart);
-  console.log(products)
+ 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -36,12 +36,12 @@ function Cart() {
 
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id, 
-      }).then(res => console.log(res)).catch(err => console.log(err));
+      })
       setLoading(false)
     } catch (err) {
       setLoading(false)
       setErr(err)
-      console.log(err);
+      // console.log(err);
       navigate("/")
     }
   };
