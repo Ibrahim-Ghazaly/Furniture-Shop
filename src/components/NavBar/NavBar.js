@@ -2,6 +2,8 @@ import React from "react";
 import "./NavBar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../redux/slices/user-slice";
+import { resetwishlist,resetCart } from '../../redux/slices/cart-slice';
+
 import { useDispatch, useSelector } from "react-redux";
 
 function NavBar() {
@@ -102,6 +104,9 @@ function NavBar() {
                       className="btn logout-btn"
                       onClick={() => {
                         dispatch(logout());
+                        dispatch(resetCart());
+                        dispatch(resetwishlist())
+                         
                       }}
                     >
                       Logout
