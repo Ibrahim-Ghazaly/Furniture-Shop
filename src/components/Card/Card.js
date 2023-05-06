@@ -27,7 +27,7 @@ function Card({product}) {
     <p className="card-text ">{product.attributes.desc}</p>
 
         <Link to={`/product/${product.id}`} className='btn product-btn d-flex align-items-center '>
-           <span>Read More </span>
+           <span>Buy Now</span>
           <i className="fi fi-rs-eye mt-2 mx-1"></i>
         </Link>
     
