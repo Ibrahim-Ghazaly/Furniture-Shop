@@ -37,6 +37,7 @@ function Cart() {
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id, 
       })
+      dispatch(resetCart())
       setLoading(false)
     } catch (err) {
       setLoading(false)
