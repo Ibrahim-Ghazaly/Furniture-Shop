@@ -32,10 +32,7 @@ function Cart() {
     setLoading(true)
     try {
       const stripe = await stripePromise;
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/orders`,{products})
-
-      dispatch(resetCart())
-         
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/orders`,{products})         
 
       await stripe.redirectToCheckout({
         sessionId: res.data.stripeSession.id, 
