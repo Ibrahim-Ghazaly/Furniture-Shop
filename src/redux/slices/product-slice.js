@@ -1,11 +1,11 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
-             //  Get all products 
+             //  Get featured products 
 
-export const getProducts = createAsyncThunk("product/getProducts",async(type,{ rejectWithValue })=>{
+export const featuredProducts = createAsyncThunk("product/featuredProducts",async(type,{ rejectWithValue })=>{
     try {
-       const res =await axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*`)
+       const res =await axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*&[filters][type][$eq]=${type}`)
        const data = await res.data 
       //  console.log(data)
        return data
@@ -14,6 +14,19 @@ export const getProducts = createAsyncThunk("product/getProducts",async(type,{ r
       return rejectWithValue(err.message)
     }
 })
+             //  Get trending products 
+
+  export const trendingProducts = createAsyncThunk("product/trendingProducts",async(type,{ rejectWithValue })=>{
+        try {
+            const res =await axios.get(`${process.env.REACT_APP_API_URL}/products?populate=*&[filters][type][$eq]=${type}`)
+            const data = await res.data 
+          //  console.log(data)
+            return data
+        }catch (err){
+          // console.log(err.message)
+          return rejectWithValue(err.message)
+        }
+    })
 
              //  Get  products by category ID
                              
@@ -40,39 +53,70 @@ export const getFilterdProducts = createAsyncThunk("product/getFilterdProducts",
 const productSlice = createSlice({
     name:"product",
     initialState:{
-      products:{items:[],isLoading:false,error:null},
+      featuredProducts:{items:[],isLoading:false,error:null},
+      trendingProducts:{items:[],isLoading:false,error:null},
       filterdProducts:{items:[],isLoading:false,error:null}
     },
     reducers:{},
     extraReducers:(builder => {
 
-          // Get all products 
+          // Get featured products 
 
         // pending 
-      builder.addCase(getProducts.pending,(state,action)=>{
+      builder.addCase(featuredProducts.pending,(state,action)=>{
         // console.log(action)
-        state.products.isLoading = true
-        state.products.error = null
+        state.featuredProducts.isLoading = true
+        state.featuredProducts.error = null
    
       })
 
       // fullfilled
-      builder.addCase(getProducts.fulfilled,(state,action)=>{
+      builder.addCase(featuredProducts.fulfilled,(state,action)=>{
         // console.log(action)
-        state.products.isLoading = false
-        state.products.items = action.payload
+        state.featuredProducts.isLoading = false
+        state.featuredProducts.items = action.payload
 
         
       })
 
       // rejected
 
-      builder.addCase(getProducts.rejected,(state,action)=>{
+      builder.addCase(featuredProducts.rejected,(state,action)=>{
         // console.log(action)
-         state.products.isLoading = false
-         state.products.error =action.payload
+         state.featuredProducts.isLoading = false
+         state.featuredProducts.error =action.payload
       
       })
+
+
+      
+          // Get trending products 
+
+        // pending 
+        builder.addCase(trendingProducts.pending,(state,action)=>{
+          // console.log(action)
+          state.trendingProducts.isLoading = true
+          state.trendingProducts.error = null
+     
+        })
+  
+        // fullfilled
+        builder.addCase(trendingProducts.fulfilled,(state,action)=>{
+          // console.log(action)
+          state.trendingProducts.isLoading = false
+          state.trendingProducts.items = action.payload
+  
+          
+        })
+  
+        // rejected
+  
+        builder.addCase(trendingProducts.rejected,(state,action)=>{
+          // console.log(action)
+           state.trendingProducts.isLoading = false
+           state.trendingProducts.error =action.payload
+        
+        })
 
 
       //  Get Products By category Id 

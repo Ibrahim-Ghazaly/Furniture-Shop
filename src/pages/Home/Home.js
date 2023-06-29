@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react'
 import Hero from '../../components/Hero/Hero'
 import './Home.css'
-import TypedProducts from '../../components/TypedProducts/TypedProducts'
+import TrendingProducts from '../../components/TrendingProducts/TrendingProducts'
+import FeaturedProducts from '../../components/FeaturedProducts/FeaturedProducts'
 import Category from '../../components/category/category'
 
 
@@ -12,11 +13,9 @@ function Home() {
 
     <>
       <Hero/>
-      <TypedProducts type ={"featured"}/>
+      <TrendingProducts /> 
       <Category/>
-      <TypedProducts type ={"trending"}/>  
-  
-   
+      <FeaturedProducts/>
 
   
     </>
